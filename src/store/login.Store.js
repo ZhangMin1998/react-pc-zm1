@@ -13,7 +13,8 @@ class LoginStore {
       mobile,
       code
     })
-    this.token = res.data.token
+    console.log(res, res.data.data.token)
+    this.token = res.data.data.token
   }
 }
 
