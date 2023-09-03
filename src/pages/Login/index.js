@@ -7,15 +7,35 @@ const Login = () => {
     <div className='login'>
       <Card className='login_container'>
         <img className='login_logo' src={logo} alt='logo' />
+        {/* 子项用到的触发事件，需要在Form声明 */}
         <Form
           initialValues={{
             remember: true,
           }}
+          validateTrigger={['onBlur', 'onChange']}
         >
-          <Form.Item>
+          <Form.Item
+            name="mobile"
+            rules={[
+              {
+                required: true, message: '请输入手机号'
+              },
+              {
+                pattern: /^(?:(?:\+|00)86)?1(?:(?:3[\d])|(?:4[5-79])|(?:5[0-35-9])|(?:6[5-7])|(?:7[0-8])|(?:8[\d])|(?:9[1589]))\d{8}$/,
+                message: '手机号码格式不对',
+                validateTrigger: 'onBlur'
+              }
+            ]}  
+          >
             <Input size="large" placeholder='请输入手机号' />
           </Form.Item>
-          <Form.Item>
+          <Form.Item
+            name="code"
+            rules={[
+              { len: 6, message: '验证码6位字符', validateTrigger: 'onBlur' },
+              { required: true, message: '请输入验证码' }
+            ]}
+          >
             <Input size="large" placeholder='请输入验证码' />
           </Form.Item>
           <Form.Item name="remember" valuePropName="checked">
