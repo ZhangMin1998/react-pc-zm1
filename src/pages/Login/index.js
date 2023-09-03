@@ -3,6 +3,12 @@ import logo from '@/assets/image/logo.png'
 import './index.scss'
 
 const Login = () => {
+  const onFinish = (values) => {
+    console.log('Success:', values)
+  };
+  const onFinishFailed = (errorInfo) => {
+    console.log('Failed:', errorInfo)
+  }
   return (
     <div className='login'>
       <Card className='login_container'>
@@ -10,9 +16,13 @@ const Login = () => {
         {/* 子项用到的触发事件，需要在Form声明 */}
         <Form
           initialValues={{
+            mobile: '13222222222',
+            code: '000000',
             remember: true,
           }}
           validateTrigger={['onBlur', 'onChange']}
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
         >
           <Form.Item
             name="mobile"
