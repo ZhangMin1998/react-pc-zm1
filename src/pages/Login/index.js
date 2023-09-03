@@ -1,19 +1,23 @@
-import { Card, Form, Input, Button, Checkbox } from 'antd'
+import { Card, Form, Input, Button, Checkbox, message } from 'antd'
 import logo from '@/assets/image/logo.png'
 import './index.scss'
 import { useStore } from '@/store'
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
   const store = useStore()
+  const navigate = useNavigate()
   const onFinish = async (values) => {
     // console.log('Success:', values)
     const { mobile, code } = values
     if (values.remember) {
       try {
         await store.loginStore.login({ mobile, code })
+        navigate('/', { replace: true })
+        message.success('登录成功')
       } catch (err) {
-        throw new Error(err.response?.data?.message || '登录失败')
-        // message.error(err.response?.data?.message || '登录失败')
+        console.log(err)
+        message.error(err.response?.data?.message || '登录失败')
       }
     }
   }
@@ -27,7 +31,7 @@ const Login = () => {
         {/* 子项用到的触发事件，需要在Form声明 */}
         <Form
           initialValues={{
-            mobile: '13811111111',
+            mobile: '13222222222',
             code: '246810',
             remember: true,
           }}
