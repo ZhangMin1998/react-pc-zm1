@@ -1,9 +1,10 @@
 // 导入路由
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import './App.css'
 
 // 导入页面组件
 import Login from './pages/Login'
-import Layout from '@/pages/Layout'
+import SysLayout from '@/pages/Layout'
 import AuthRoute from './components/AuthRoute'
 
 // 配置路由规则
@@ -17,7 +18,7 @@ function App() {
             path="/"
             element={
               <AuthRoute>
-                <Layout/>
+                <SysLayout/>
               </AuthRoute>
             }
           />
