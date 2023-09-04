@@ -7,7 +7,7 @@ import {
 } from '@ant-design/icons'
 import { Layout, Menu, Popconfirm } from 'antd'
 import './index.scss'
-import { Outlet, Link, useLocation } from 'react-router-dom'
+import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom'
 import { useStore } from '@/store'
 import { observer } from 'mobx-react-lite'
 
@@ -22,6 +22,13 @@ const SysLayout = () => {
   useEffect(() => {
     store.userStore.getUserInfo()
   }, [store.userStore])
+
+  // 退出
+  const navigate = useNavigate()
+  const onLogout = () => {
+    store.loginStore.loginOut()
+    navigate('/login')
+  }
   
   return (
     <div>
@@ -29,9 +36,9 @@ const SysLayout = () => {
         <Header className='header'>
           <div className='logo'></div>
           <div className='user_info'>
-            <span className='user_name'>{store.userStore.userInfo.name}</span>
+            <span className='user_name'>{store.userStore.userInfo.mobile}</span>
             <span className="user_logout">
-              <Popconfirm title="是否确认退出？" okText="退出" cancelText="取消">
+              <Popconfirm title="是否确认退出？" okText="退出" cancelText="取消" onConfirm={onLogout}>
                 <LogoutOutlined /> 退出
               </Popconfirm>
             </span>

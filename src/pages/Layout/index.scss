@@ -1,9 +1,9 @@
 .header{
   padding: 0;
   .logo{
-    width: 60px;
+    width: 180px;
     height: 60px;
-    background: url('~@/assets/image/logo.png') no-repeat center / 60px auto;
+    background: url('~@/assets/image/logo.png') repeat center / 60px auto;
   }
   .user_info{
     position: absolute;
