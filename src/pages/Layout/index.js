@@ -6,11 +6,15 @@ import {
 } from '@ant-design/icons'
 import { Layout, Menu, Popconfirm } from 'antd'
 import './index.scss'
-import { Outlet, Link } from 'react-router-dom'
+import { Outlet, Link, useLocation } from 'react-router-dom'
 
 const { Header, Sider } = Layout
 
 function sysLayout () {
+  const location = useLocation
+  // console.log('location', location())
+  const selectedKey = location().pathname
+  
   return (
     <div>
       <Layout>
@@ -30,7 +34,7 @@ function sysLayout () {
             <Menu
               mode="inline"
               theme="dark"
-              defaultSelectedKeys={['1']}
+              selectedKeys={[selectedKey]}
               style={{ height: '100%', borderRight: 0 }}
             >
               <Menu.Item icon={<HomeOutlined />} key="/">
