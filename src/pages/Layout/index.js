@@ -6,7 +6,7 @@ import {
 } from '@ant-design/icons'
 import { Layout, Menu, Popconfirm } from 'antd'
 import './index.scss'
-import { Outlet } from 'react-router-dom'
+import { Outlet, Link } from 'react-router-dom'
 
 const { Header, Sider } = Layout
 
@@ -33,14 +33,14 @@ function sysLayout () {
               defaultSelectedKeys={['1']}
               style={{ height: '100%', borderRight: 0 }}
             >
-              <Menu.Item icon={<HomeOutlined />} key="1">
-                数据概览
+              <Menu.Item icon={<HomeOutlined />} key="/">
+                <Link to="/">数据概览</Link>
               </Menu.Item>
-              <Menu.Item icon={<DiffOutlined />} key="2">
-                内容管理
+              <Menu.Item icon={<DiffOutlined />} key="/article">
+                <Link to="/article">内容管理</Link>
               </Menu.Item>
-              <Menu.Item icon={<EditOutlined />} key="3">
-                发布文章
+              <Menu.Item icon={<EditOutlined />} key="/publish">
+                <Link to="/publish">发布文章</Link>
               </Menu.Item>
             </Menu>
           </Sider>
