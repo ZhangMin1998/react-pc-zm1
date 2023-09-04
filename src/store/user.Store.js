@@ -8,8 +8,12 @@ class UserStore {
   }
 
   getUserInfo = async () => {
-    const res = await http.get('/user/profile')
-    this.userInfo = res.data.data
+    try {
+      const res = await http.get('/user/profile')
+      this.userInfo = res.data.data
+    }catch(err) {
+      console.log(err)
+    }
   }
   
 }

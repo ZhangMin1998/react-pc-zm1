@@ -2,7 +2,8 @@
 // 创建 axios 实例，配置 baseURL，请求拦截器，响应拦截器
 
 import axios from 'axios'
-import { getToken } from '@/utils'
+import { getToken, clearToken } from '@/utils'
+import { history } from '@/utils/history'
 
 const http = axios.create({
   baseURL: 'http://geek.itheima.net/v1_0',
@@ -28,10 +29,11 @@ http.interceptors.response.use(response => {
 }, error => {
   // 超出 2xx 范围的状态码都会触发该函数。
   // 对响应错误做点什么
-  console.dir(error)
-  // if (error.response.status === 401) {
-
-  // }
+  // console.dir(error)
+  if (error.response.status === 401) {
+    clearToken()
+    history.push('/login')
+  }
   return Promise.reject(error)
 })
 
