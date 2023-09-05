@@ -1,30 +1,37 @@
-// import * as echarts from 'echarts'
+import * as echarts from 'echarts'
+import { useEffect, useRef } from 'react'
 
-// const initChart = () => {
-//   const mychart = echarts.init(document.getElementById('main'))
+function initChart (node, xData, sData, title) {
+  const myChart = echarts.init(node)
+  // 绘制图表
+  myChart.setOption({
+    title: {
+      text: title
+    },
+    tooltip: {},
+    xAxis: {
+      data: xData
+    },
+    yAxis: {},
+    series: [
+      {
+        name: '销量',
+        type: 'bar',
+        data: sData
+      }
+    ]
+  })
+}
 
-//   mychart.setOption({
-//     title: {
-//       text: '三大框架满意度'
-//     },
-//     tooltip: {},
-//     xAxis: {
-//       data: ['衬衫', '牛仔裤', '毛衣', '丝袜']
-//     },
-//     yAxis: {},
-//     series: [
-//       {
-//         name: '销量',
-//         type: 'bar',
-//         data: [5, 20, 36, 10]
-//       }
-//     ]
-//   })
-// }
-// function Bar () {
-//   return (
+function Bar ({ style, xData, sData, title }) {
+  const nodeRef = useRef(null)
+  useEffect(() => {
+    initChart(nodeRef.current, xData, sData, title)
+  })
 
-//   )
-// }
+  return (
+    <div ref={nodeRef} style={style}></div>
+  )
+}
 
-// export default Bar
+export default Bar
