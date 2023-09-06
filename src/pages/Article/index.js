@@ -11,6 +11,10 @@ const { Option } = Select
 const { RangePicker } = DatePicker
 
 function Article () {
+  // 筛选
+  const onFinish = (values) => {
+    console.log(values)
+  }
   // 获取频道列表
   const [channels, setChannels] = useState([])
   useEffect(() => {
@@ -20,9 +24,30 @@ function Article () {
     }
     fetchChannels()
   }, [])
-  const onFinish = (values) => {
-    console.log(values)
-  }
+
+  // 文章列表数据管理
+  const [article, setArticleList] = useState({
+    list: [],
+    count: 0
+  })
+  // 参数管理
+  const [params, setParams] = useState({
+    page: 1,
+    per_page: 10
+  })
+  // 获取文章列表
+  useEffect(() => {
+    async function fetchArticleList() {
+      const res = await http.get('/mp/articles', { params })
+      // console.log(res)
+      setArticleList({
+        list: res.data.data.results,
+        count: res.data.data.total_count
+      })
+    }
+    fetchArticleList()
+  }, [params])
+  
   const img404 = 'https://img-blog.csdnimg.cn/e9f21a8179be4e6db55535ccfa55d0e6.png'
   const data = [
     {
