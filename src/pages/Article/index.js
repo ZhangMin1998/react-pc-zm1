@@ -1,14 +1,25 @@
 import { Card, Breadcrumb, Form, Radio, Select, DatePicker, Button, Table, Tag, Space } from 'antd'
 import { Link } from 'react-router-dom'
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons'
+import { http } from '@/utils'
 import locale from 'antd/es/date-picker/locale/zh_CN'
 import 'dayjs/locale/zh-cn'
 import './index.scss'
+import { useEffect, useState } from 'react'
 
 const { Option } = Select
 const { RangePicker } = DatePicker
 
 function Article () {
+  // 获取频道列表
+  const [channels, setChannels] = useState([])
+  useEffect(() => {
+    async function fetchChannels() {
+      const res = await http.get('/channels')
+      setChannels(res.data.data.channels)
+    }
+    fetchChannels()
+  }, [])
   const onFinish = (values) => {
     console.log(values)
   }
@@ -33,7 +44,7 @@ function Article () {
       dataIndex: 'cover',
       width:120,
       render: cover => {
-        return <img src={cover || img404} width={80} height={60} alt="" />
+        return <img src={cover.images || img404} width={80} height={60} alt="" />
       }
     },
     {
@@ -125,8 +136,13 @@ function Article () {
               placeholder="请选择文章频道"
               style={{ width: 200 }}
             >
-              <Option value="jack">Jack</Option>
-              <Option value="lucy">Lucy</Option>
+              {
+                channels.map(item => (
+                  <Option key={item.id} value={item.id}>
+                    {item.name}
+                  </Option>
+                ))
+              }
             </Select>
           </Form.Item>
 
