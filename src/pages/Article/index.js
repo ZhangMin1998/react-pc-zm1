@@ -12,8 +12,25 @@ const { RangePicker } = DatePicker
 
 function Article () {
   // 筛选
-  const onFinish = (values) => {
+  const onSearch = (values) => {
     console.log(values)
+    const { status, channel_id, date } = values
+    // 格式化表单数据
+    const _params = {}
+    // 格式化status
+    _params.status = status
+    if (channel_id) {
+      _params.channel_id = channel_id
+    }
+    if (date) {
+      _params.begin_pubdate = date[0].format('YYYY-MM-DD')
+      _params.end_pubdate = date[1].format('YYYY-MM-DD')
+    }
+    // 修改params参数 触发接口再次发起
+    setParams({
+       ...params,
+       ..._params
+    })
   }
   // 获取频道列表
   const [channels, setChannels] = useState([])
@@ -143,7 +160,7 @@ function Article () {
         style={{ marginBottom: 20 }}
       >
         <Form 
-          onFinish={onFinish}
+          onFinish={onSearch}
           initialValues={{ status: 4 }}
         >
           <Form.Item label="状态" name="status">
