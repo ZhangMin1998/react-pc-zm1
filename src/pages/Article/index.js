@@ -15,22 +15,35 @@ function Article () {
     <div>
       <Card
         title={
-          <Breadcrumb separator=">">
-            <Breadcrumb.Item>
+          <Breadcrumb
+            separator=">"
+            items={[
+              {
+                title: <Link to="/">首页</Link>,
+              },
+              {
+                title: '内容管理',
+              }
+              // {
+              //   title: <a href="/">首页</a>,
+              // },
+            ]}
+          >
+            {/* <Breadcrumb.Item>
               <Link to="/">首页</Link>
             </Breadcrumb.Item>
-            <Breadcrumb.Item>内容管理</Breadcrumb.Item>
+            <Breadcrumb.Item>内容管理</Breadcrumb.Item> */}
           </Breadcrumb>
         }
         style={{ marginBottom: 20 }}
       >
         <Form 
           onFinish={onFinish}
-          initialValues={{ status: null }}
+          initialValues={{ status: 4 }}
         >
           <Form.Item label="状态" name="status">
             <Radio.Group>
-              <Radio value={null}>全部</Radio>
+              <Radio value={4}>全部</Radio>
               <Radio value={0}>草稿</Radio>
               <Radio value={1}>待审核</Radio>
               <Radio value={2}>审核通过</Radio>
