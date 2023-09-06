@@ -1,4 +1,4 @@
-import { Card, Breadcrumb, Form, Radio, Select, DatePicker, Button, Table, Tag, Space } from 'antd'
+import { Card, Breadcrumb, Form, Radio, Select, DatePicker, Button, Table, Tag, Space, Popconfirm } from 'antd'
 import { Link } from 'react-router-dom'
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons'
 import { http } from '@/utils'
@@ -64,21 +64,56 @@ function Article () {
     }
     fetchArticleList()
   }, [params])
+
+  // 删除回调
+  const delArticle = async (data) => {
+    await http.delete(`/mp/articles/${data.id}`)
+    // 更新列表
+    setParams({
+      page: 1,
+      per_page: 10
+    })
+  }
   
   const img404 = 'https://img-blog.csdnimg.cn/e9f21a8179be4e6db55535ccfa55d0e6.png'
   const data = [
     {
       id: '8218',
-      comment_count: 0,
+      comment_count: 99,
       cover: {
         images:['http://geek.itheima.net/resources/images/15.jpg'],
       },
-      like_count: 0,
+      like_count: 520,
       pubdate: '2019-03-11 09:00:00',
-      read_count: 2,
+      read_count: 654,
+      status: 2,
+      title: 'wkwebview离线化加载h5资源解决方案' 
+    },
+    {
+      id: '8219',
+      comment_count: 451,
+      cover: {
+        images:['http://geek.itheima.net/resources/images/15.jpg'],
+      },
+      like_count: 565,
+      pubdate: '2019-03-11 09:00:00',
+      read_count: 5646,
+      status: 2,
+      title: 'wkwebview离线化加载h5资源解决方案' 
+    },
+    {
+      id: '8217',
+      comment_count: 451,
+      cover: {
+        images:['http://geek.itheima.net/resources/images/15.jpg'],
+      },
+      like_count: 565,
+      pubdate: '2019-03-11 09:00:00',
+      read_count: 5646,
       status: 2,
       title: 'wkwebview离线化加载h5资源解决方案' 
     }
+    
   ]
   const columns = [
     {
@@ -121,12 +156,25 @@ function Article () {
         return (
           <Space size="middle">
             <Button type="primary" shape="circle" icon={<EditOutlined />} />
-            <Button
+            {/* <Button
               type="primary"
-              danger
               shape="circle"
-              icon={<DeleteOutlined />}
-            />
+              icon={<EditOutlined />}
+              onClick={() => history.push(`/home/publish?id=${data.id}`)}
+            /> */}
+            <Popconfirm
+              title="确认删除该条文章吗?"
+              onConfirm={() => delArticle(data)}
+              okText="确认"
+              cancelText="取消"
+            >
+              <Button
+                type="primary"
+                danger
+                shape="circle"
+                icon={<DeleteOutlined />}
+              />
+            </Popconfirm>
           </Space>
         )
       }
