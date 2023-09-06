@@ -21,12 +21,17 @@
   }
 }
 .ant-layout {
-  height: 100vh;
+  height: 100%;
 }
 .ant-layout-header {
   padding: 0 !important;
 }
+.ant-layout-sider{
+  box-sizing: border-box;
+  height: calc(100vh - 64px);
+}
 .layout-content {
+  box-sizing: border-box;
   overflow-y: auto;
-  // height: 80vh;
+  height: calc(100vh - 64px);
 }

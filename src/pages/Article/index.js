@@ -1,5 +1,6 @@
-import { Card, Breadcrumb, Form, Radio, Select, DatePicker, Button } from 'antd'
+import { Card, Breadcrumb, Form, Radio, Select, DatePicker, Button, Table, Tag, Space } from 'antd'
 import { Link } from 'react-router-dom'
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons'
 import locale from 'antd/es/date-picker/locale/zh_CN'
 import 'dayjs/locale/zh-cn'
 import './index.scss'
@@ -11,6 +12,74 @@ function Article () {
   const onFinish = (values) => {
     console.log(values)
   }
+  const img404 = 'https://img-blog.csdnimg.cn/e9f21a8179be4e6db55535ccfa55d0e6.png'
+  const data = [
+    {
+      id: '8218',
+      comment_count: 0,
+      cover: {
+        images:['http://geek.itheima.net/resources/images/15.jpg'],
+      },
+      like_count: 0,
+      pubdate: '2019-03-11 09:00:00',
+      read_count: 2,
+      status: 2,
+      title: 'wkwebview离线化加载h5资源解决方案' 
+    }
+  ]
+  const columns = [
+    {
+      title: '封面',
+      dataIndex: 'cover',
+      width:120,
+      render: cover => {
+        return <img src={cover || img404} width={80} height={60} alt="" />
+      }
+    },
+    {
+      title: '标题',
+      dataIndex: 'title',
+      width: 220
+    },
+    {
+      title: '状态',
+      dataIndex: 'status',
+      render: data => <Tag color="green">审核通过</Tag>
+    },
+    {
+      title: '发布时间',
+      dataIndex: 'pubdate'
+    },
+    {
+      title: '阅读数',
+      dataIndex: 'read_count'
+    },
+    {
+      title: '评论数',
+      dataIndex: 'comment_count'
+    },
+    {
+      title: '点赞数',
+      dataIndex: 'like_count'
+    },
+    {
+      title: '操作',
+      render: data => {
+        return (
+          <Space size="middle">
+            <Button type="primary" shape="circle" icon={<EditOutlined />} />
+            <Button
+              type="primary"
+              danger
+              shape="circle"
+              icon={<DeleteOutlined />}
+            />
+          </Space>
+        )
+      }
+    }
+  ]
+
   return (
     <div>
       <Card
@@ -75,6 +144,11 @@ function Article () {
         </Form>
 
       </Card>
+
+      <Card title={`根据筛选条件共查询到 count 条结果：`}>
+        <Table rowKey="id" columns={columns} dataSource={data} />
+      </Card>
+      
     </div>
   )
 }
