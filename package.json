@@ -16,13 +16,15 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.15.0",
     "react-scripts": "5.0.1",
+    "source-map-explorer": "^2.5.3",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "report": "source-map-explorer 'build/static/js/*.js'"
   },
   "eslintConfig": {
     "extends": [
